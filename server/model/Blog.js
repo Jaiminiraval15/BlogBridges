@@ -20,5 +20,5 @@ const mongoose = require('mongoose');
     }
 
  })
- const blogs = mongoose.model('Blogs',blogSchema);
- module.exports = blogs;
+ const Blogs = mongoose.model('Blogs',blogSchema);
+ module.exports = Blogs;
