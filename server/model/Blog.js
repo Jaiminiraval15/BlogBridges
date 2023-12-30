@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
- const blogSchema = new mongoose.Schema({
+ const blogSchema =  new mongoose.Schema({
     title : {
         type : String,
         required : true,
@@ -10,9 +10,7 @@ const mongoose = require('mongoose');
         type : String,
         required : true
     },
-    date : {
-        default : Date.now()
-    },
+  
     userid : {
         type : mongoose.Schema.Types.ObjectId,
         ref : 'User',
@@ -20,5 +18,5 @@ const mongoose = require('mongoose');
     }
 
  })
- const Blogs = mongoose.model('Blogs',blogSchema);
- module.exports = Blogs;
+ const blog = mongoose.model('Blog',blogSchema);
+ module.exports = blog;

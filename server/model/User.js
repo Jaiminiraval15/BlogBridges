@@ -1,30 +1,60 @@
-const mongoose= require('mongoose');
-const isEmail = require('validator');
-const userSchema = new mongoose.Schema({
-    userName : {
-        type : String,
-        required : [true,'Enter username'],
-        unique : true
+const mongoose = require("mongoose")
+const {isEmail} = require('validator')
+const bcrypt = require('bcrypt')
+const userSchema = mongoose.Schema({
+    firstname:{
+        type:String,
+        required:[true,'Enter firstname']
     },
-    firstName : {
-        tyep : String,
-        required : true
+    lastname:{
+        type:String,
+        required:[true,'Enter lastname']
     },
-    lastName : {
-        type : String,
-        required : true
-    },
-    email : {
-        type : String,
+    email:{
+        type:String,
         unique:true,
-        required : [true,'Enter an email'],
-        validate : [isEmail,'Enter a valid email']
+        required:[true,'Enter email'],
+        validate: [isEmail,'Enter a valid email']
     },
-    password : {
-        type : String,
-        required : [true,'Enter a password'],
-        minLength : [8,'Passwords should be minimum 8 chracaters long']  
+    username:{
+        type:String,
+        unique:true,
+        required:[true,'Enter username']
+    },
+    password:{
+        type:String,
+        minLength:[8,'Password should be minimum 8 characters long'],
+        required:[true,'Enter password']
     }
 })
+
+
+//password hashing before saving passwords to db
+userSchema.pre('save', async function (next){
+    const salt =  await bcrypt.genSalt();
+    this.password = await bcrypt.hash(this.password,salt);
+    console.log("new user will be created and saved to db");
+    next();
+})
+//fire a function after doc is saved to db
+userSchema.post('save',function (doc,next){
+    console.log("new user created and saved to db",doc);
+    next();
+})
+//static method to login user
+userSchema.statics.login = async function(email,password){
+    const user = await this.findOne({email})
+    if(user){
+       const auth = await bcrypt.compare(password,user.password)
+        //if pw match
+    if(auth){
+        return user;    
+    }
+    throw Error('Incorrect password')
+}
+   
+    throw Error('Incorrect email')
+
+}
 const User = mongoose.model('User',userSchema)
-module.exports = User 
+module.exports = User
