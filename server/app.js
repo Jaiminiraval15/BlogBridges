@@ -12,16 +12,11 @@ mongoose.connect(process.env.db_url)
         console.log("Database connected")
     })
 })
-// mongoose.connect(process.env.db_url,{
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true
-// })
-// .then(()=>{
-//     app.listen(PORT,()=>{
-//         console.log("DB connected")
-//     })
-// })
+
 
 app.use(express.json())
 const authRoutes = require('./routes/authRoutes')
+const blogRoutes = require('./routes/BlogRoutes')
+const requireAuth = require('./middleware/authMiddleware')
+app.use('/api/blogs',requireAuth,blogRoutes)
 app.use('/api/routes',authRoutes)
