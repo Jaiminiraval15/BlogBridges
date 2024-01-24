@@ -4,12 +4,31 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthContextProvider } from './context/AuthContext';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Login } from './components/Forms/LoginForm';
+import { Signup } from './components/Forms/SignupForm';
+import Layout from './components/Layout';
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+  },{
+    path: '/login',
+    element: <Login />,
+  },
+  {
+    path: '/signup',
+    element: <Signup />,
+  
 
+},]);
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
-    <App />
+    <RouterProvider router={router}></RouterProvider>
     </AuthContextProvider>
   </React.StrictMode>
 );

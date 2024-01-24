@@ -43,7 +43,7 @@
 }
 
 .login-button {
-  background-color: #4caf50;
+  background-color: #4caf50 ;
   color: #fff;
   padding: 10px;
   border: none;
@@ -66,3 +66,35 @@
   margin-top: 16px;
 }
 
+/* Add this CSS to your stylesheets */
+
+/* Add this CSS to your stylesheets */
+
+.navbar {
+  background-color:  #4caf50; /* Green color */
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
