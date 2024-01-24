@@ -1,9 +1,10 @@
 import { useState } from "react";
 import "../../index.css";
 import { useLogin } from "../../hooks/useLogin";
-
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, isLoading, error } = useLogin();
@@ -11,6 +12,7 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await login(email, password);
+    navigate('/');
   };
 
   return (

@@ -7,11 +7,15 @@ import { AuthContextProvider } from './context/AuthContext';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Login } from './components/Forms/LoginForm';
 import { Signup } from './components/Forms/SignupForm';
+import Home from './components/Home';
 import Layout from './components/Layout';
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
+    children: [
+      { path: '/', element: <Home/> },
+    ],
   },{
     path: '/login',
     element: <Login />,
