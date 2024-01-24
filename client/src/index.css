@@ -108,7 +108,7 @@ margin-top: 10px; /* Adjust as needed based on your navbar height */
 }
 
 .left-aligned-image {
-max-width: 30%; /* Set a maximum width */
+max-width: 20%; /* Set a maximum width */
 height: auto; /* Maintain the aspect ratio */
 margin-right: 10px; /* Adjust as needed for spacing between image and the left edge */
 }
