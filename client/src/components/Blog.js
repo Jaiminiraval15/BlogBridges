@@ -1,7 +1,7 @@
 import { useEffect ,useState} from "react"
 import { useAuthContext } from "../hooks/useAuthContext"
 import { useNavigate } from "react-router-dom";
-import {Card,CardActionArea,CardContent,CardActions,Typography} from '@mui/material';
+
 export default function Blog(){
     const {user} = useAuthContext();
     const navigate = useNavigate();
@@ -26,12 +26,12 @@ export default function Blog(){
                 })
                 const data = await res.json();
                 setBlogs(data);
-            }
+            
             if(!res.ok){
                 throw new Error("Error fetching blogs");
 
             }
-           
+        }
 
         } catch (error) {
             console.log(error);
