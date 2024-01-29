@@ -17,7 +17,7 @@ export const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await signup(email, password, firstName, lastName, userName);
-    navigate("/");
+  
   };
 
   return (

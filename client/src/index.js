@@ -9,12 +9,14 @@ import { Login } from './components/Forms/LoginForm';
 import { Signup } from './components/Forms/SignupForm';
 import Home from './components/Home';
 import Layout from './components/Layout';
+import Blog from './components/Blog';
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
     children: [
       { path: '/', element: <Home/> },
+      {path:'/blog',element:<Blog/>}
     ],
   },{
     path: '/login',
