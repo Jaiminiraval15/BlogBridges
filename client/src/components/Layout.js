@@ -22,6 +22,7 @@ export default function Layout(){
           <div className="logo">BlogBridges</div>
           <div className="nav-links">
             <Link to="/">Home</Link>
+            <Link to="/blog">Blogs</Link>
             <button onClick={handleSubmit}>Logout</button>
           </div>
         </nav>
