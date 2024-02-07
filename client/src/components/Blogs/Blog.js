@@ -50,6 +50,9 @@ export default function Blog() {
     const openMDE = () => {
         navigate('/mde');
     };
+    const handleBlogDetail = (blogid) => () => {
+        navigate(`/blog/${blogid}`);
+    }
 
     return (
         <Container maxWidth='lg'>
@@ -79,7 +82,7 @@ export default function Blog() {
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Button size="small" color="primary">
+                                <Button size="small" color="primary" onClick={handleBlogDetail(blog._id)}>
                                     Read More
                                 </Button>
                             </CardActions>

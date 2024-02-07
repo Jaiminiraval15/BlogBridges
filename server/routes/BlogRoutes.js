@@ -5,4 +5,5 @@ router.get('/',blogController.getAll)
 router.post("/addblog",blogController.addBlog)
 router.delete("/deleteblog/:blogid",blogController.deleteBlog)
 router.put("/editblog/:blogid",blogController.editBlog)
+router.get('/:blogid',blogController.getBlogById)
 module.exports = router

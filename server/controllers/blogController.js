@@ -10,6 +10,21 @@ const getAll = (async (req, res) => {
         res.status(400).send('Cannot get blogs!');
     }
 })
+const getBlogById = async(req,res) => {
+    try {
+        const blogid = req.params.blogid
+        const blog = await Blog.findById(blogid)
+        if(!blog){
+            return res.status(404).json({error : "Blog not found"})
+        }
+        res.json(blog)
+
+}
+
+catch{
+    res.status(500).json({error : error.message})
+}
+}
 const addBlog = async(req,res) =>{
     try {
         const userid = req.userid
@@ -77,4 +92,4 @@ const editBlog = async(req,res) =>{
     
 }
 
-module.exports = {getAll,addBlog,deleteBlog,editBlog}
+module.exports = {getAll,addBlog,deleteBlog,editBlog,getBlogById}

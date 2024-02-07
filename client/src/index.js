@@ -12,6 +12,7 @@ import Layout from './components/Layout';
 
 import MDE from './components/MDE';
 import Blog from './components/Blogs/Blog';
+import BlogDetail from './components/Blogs/BlogDetail';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <Home/> },
       {path:'/blog',element:<Blog/>},
+      { path: '/blog/:id', element: <BlogDetail/> }, 
       {path:'/mde',element:<MDE/>}
     ],
   },{
