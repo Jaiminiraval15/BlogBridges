@@ -9,8 +9,9 @@ import { Login } from './components/Forms/LoginForm';
 import { Signup } from './components/Forms/SignupForm';
 import Home from './components/Home';
 import Layout from './components/Layout';
-import Blog from './components/Blog';
+
 import MDE from './components/MDE';
+import Blog from './components/Blogs/Blog';
 const router = createBrowserRouter([
   {
     path: '/',

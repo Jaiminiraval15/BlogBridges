@@ -2,7 +2,7 @@ const Blog = require('../model/Blog')
 const User = require('../model/User')
 const getAll = (async (req, res) => {
     try {
-        const userid = req.userid.id
+        const userid = req.userid
         const blog = await Blog.find({userid : userid});
         res.send(blog);
     }
@@ -23,7 +23,7 @@ const addBlog = async(req,res) =>{
         )
         await blog.save()
         res.json(blog)
-        res.send(blog)
+       
     } catch (error) {
         res.status(500).json({ error: error.message })
     }

@@ -6,7 +6,6 @@ import { Signup } from './components/Forms/SignupForm';
 function App() {
   return (
    <>
-   <Signup/>
    </>
   );
 }
