@@ -4,12 +4,15 @@ import "easymde/dist/easymde.min.css";
 import {marked} from 'marked';
 import { Button, Typography } from "@mui/material";
 import { useAuthContext } from "../hooks/useAuthContext";
+import swal from 'sweetalert'
 
+import {useNavigate} from 'react-router-dom';
 export default function MDE() {
     const { user } = useAuthContext();
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [blogs, setBlogs] = useState([]);
+    const navigate = useNavigate();
     const handleCreateBlog = async () => {
         try {
             const response = await fetch('http://localhost:2000/api/blogs/addblog', {
@@ -30,7 +33,10 @@ export default function MDE() {
            setBlogs(prevBlogs => [...prevBlogs, data]);
             setTitle("");
             setContent("");
+            swal("Blog Added", "Your blog has been added successfully", "success");
+            navigate('/blog');
         } catch (error) {
+            swal("Error", "Failed to add blog", "error");
             console.log(error);
         }
     };
