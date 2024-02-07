@@ -2,14 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Card, CardContent, CardActions, Grid, Typography, Container } from "@mui/material";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import ReactMarkdown from "react-markdown";
 import {marked} from 'marked';
+
 export default function Blog() {
     const { user } = useAuthContext();
     const navigate = useNavigate();
     const [blogs, setBlogs] = useState([]);
-
-    const token = user ? user.token : null;
 
     useEffect(() => {
         if (user) {
@@ -42,8 +40,13 @@ export default function Blog() {
             console.error('Error fetching blogs:', error);
         }
     };
-
-
+    const truncateContent = (content, maxLength) => {
+        if (content.length > maxLength) {
+            return content.substring(0, maxLength) + '...';
+        } else {
+            return content;
+        }
+    };
     const openMDE = () => {
         navigate('/mde');
     };
@@ -65,16 +68,16 @@ export default function Blog() {
                 {Array.isArray(blogs) && blogs.length === 0 && <Typography variant="h4">No blogs</Typography>}
                 {blogs.map((blog => (
                     <Grid item xs={12} sm={6} md={4} lg={3} key={blog._id}>
-                        <Card>
-                            <CardContent>
+                        <Card style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'auto' }}>
+
+                            <CardContent style={{ height: '100%', display: 'flex', flexDirection: 'column' }}> 
                                 <Typography variant="h5" component="div">
                                     {blog.title}
                                 </Typography>
-                                <Typography variant="body1" color="text.secondary">
-                                <div dangerouslySetInnerHTML={{ __html: marked(blog.content) }}></div>
-                            
-                               </Typography>
-
+                                <Typography variant="body1" color="text.secondary" style={{ flex: 1, overflow: 'hidden' }}> 
+                                  
+                                <div dangerouslySetInnerHTML={{ __html: marked(truncateContent(blog.content, 60)) }}></div>
+                                </Typography>
                             </CardContent>
                             <CardActions>
                                 <Button size="small" color="primary">

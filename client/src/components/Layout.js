@@ -3,6 +3,7 @@ import "../index.css";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useNavigate } from 'react-router-dom';
+import { Button } from "@mui/material";
 
 
 
@@ -23,7 +24,8 @@ export default function Layout(){
           <div className="nav-links">
             <Link to="/">Home</Link>
             <Link to="/blog">Blogs</Link>
-            <button onClick={handleSubmit}>Logout</button>
+            {/* <button onClick={handleSubmit}>Logout</button> */}
+            <Button onClick={handleSubmit} variant="contained" color="secondary">Logout</Button>
           </div>
         </nav>
       ) }{!user && (
