@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAuthContext } from '../../hooks/useAuthContext';
-import { Typography } from '@mui/material';
+import { CircularProgress, Typography } from '@mui/material';
 import { marked } from 'marked';
 export default function BlogDetail() {
     const { blogid } = useParams();
@@ -41,7 +41,7 @@ export default function BlogDetail() {
     }, [blogid, user]);
 
     if (loading) {
-        return <p>Loading...</p>;
+        return <CircularProgress />;
     }
 
     if (error) {
@@ -52,14 +52,14 @@ export default function BlogDetail() {
         <div>
             {blog ? (
                 <div>
-                    <Typography variant="h4" style={{margin:'1em'}}>Title: {blog.title}</Typography>
+                    <Typography variant="h4" style={{margin:'0.5em',alignItems:'center',flexDirection:'column'}}>Title: {blog.title}</Typography>
                     <Typography variant="body1" color="text.secondary" style={{ flex: 1, overflow: 'hidden' }}>                                 
                                 <div dangerouslySetInnerHTML={{ __html: marked(blog.content)}}></div>
                                 </Typography>
                     
                 </div>
             ) : (
-                <p>No blog found with ID {blogid}</p>
+                <p>No blog found</p>
             )}
         </div>
     );

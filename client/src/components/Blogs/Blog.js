@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Card, CardContent, CardActions, Grid, Typography, Container } from "@mui/material";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import {marked} from 'marked';
+import swal from 'sweetalert';
 
 export default function Blog() {
     const { user } = useAuthContext();
@@ -47,6 +48,45 @@ export default function Blog() {
             return content;
         }
     };
+   
+
+const handleDelete = async (blogid) => {
+    try {
+        const result = await swal({
+            title: 'Are you sure?',
+            text: 'Once deleted, you will not be able to recover this blog!',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+        });
+
+        if (result) {
+            const response = await fetch(`http://localhost:2000/api/blogs/deleteblog/${blogid}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to delete blog');
+            }
+
+            setBlogs(prevBlogs => prevBlogs.filter(blog => blog._id !== blogid));
+            swal("Blog Deleted", "Your blog has been deleted successfully", "success");
+        } else {
+            swal("Blog Deletion Cancelled", "Your blog is safe :)", "info");
+        }
+    } catch (error) {
+        swal("Error", "Failed to delete blog", "error");
+        console.error('Error deleting blog:', error);
+    }
+}
+
+    
+    
+    
     const openMDE = () => {
         navigate('/mde');
     };
@@ -82,8 +122,11 @@ export default function Blog() {
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Button size="small" color="primary" onClick={handleBlogDetail(blog._id)}>
+                                <Button size="small" color="primary" variant="contained" onClick={handleBlogDetail(blog._id)}>
                                     Read More
+                                </Button>
+                                <Button size="small"  variant="contained" color="error" onClick={()=>(handleDelete(blog._id))} >
+                                    Delete
                                 </Button>
                             </CardActions>
                         </Card>
