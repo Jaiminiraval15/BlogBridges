@@ -10,21 +10,28 @@ const getAll = (async (req, res) => {
         res.status(400).send('Cannot get blogs!');
     }
 })
-const getBlogById = async(req,res) => {
+const getBlogById = async (req, res) => {
     try {
-        const blogid = req.params.blogid
-        const blog = await Blog.findById(blogid)
-        if(!blog){
-            return res.status(404).json({error : "Blog not found"})
+        const blogid = req.params.blogid;
+
+        if (!blogid) {
+            return res.status(400).json({ error: "Blog ID is required" });
         }
-        res.json(blog)
 
-}
+        const blog = await Blog.findOne({_id:blogid}).populate("userid");
 
-catch{
-    res.status(500).json({error : error.message})
-}
-}
+        if (!blog) {
+            return res.status(404).json({ error: "Blog not found" });
+        }
+
+        res.json(blog);
+    } catch (error) {
+        console.error("Error fetching blog:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+};
+
+
 const addBlog = async(req,res) =>{
     try {
         const userid = req.userid

@@ -50,8 +50,8 @@ export default function Blog() {
     const openMDE = () => {
         navigate('/mde');
     };
-    const handleBlogDetail = (blogid) => () => {
-        navigate(`/blog/${blogid}`);
+    const handleBlogDetail = (id) => () => {
+        navigate(`/blog/${id}`);
     }
 
     return (
