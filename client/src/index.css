@@ -1,18 +1,16 @@
-/* login css */
 .login-container {
   display: flex;
-  align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  align-items: center;
+  height: 100vh;
 }
 
 .login-paper {
-  padding: 16px;
+  padding: 35px;
   border-radius: 8px;
-  width: 100%;
-  max-width: 400px;
+  width: 350px;
   background-color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .login-title {
@@ -28,37 +26,29 @@
   gap: 16px;
 }
 
-.login-label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 0.875rem;
-  color: #333;
-}
-
 .login-input {
   width: 100%;
-  padding: 8px;
+  padding: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
 .login-button {
-  background-color: #4caf50 ;
-  color: #fff;
-  padding: 10px;
+  width: 100%; 
+  padding: 12px 0;
   border: none;
+  align-items: center;
+  justify-content: center;
   border-radius: 4px;
   cursor: pointer;
+  background-color: #574caf;
+  color: #fff;
   transition: background-color 0.3s ease;
+}
 
-  &:hover {
-    background-color: #45a049;
-  }
-
-  &.disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
+.login-button.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 .login-error {
@@ -66,12 +56,10 @@
   margin-top: 16px;
 }
 
-
-
 /* navbar */
 
 .navbar {
-  background-color:  #0b005f; 
+  background-color:  #574caf; 
   padding: 15px;
   display: flex;
   justify-content: space-between;

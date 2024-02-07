@@ -12,7 +12,6 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await login(email, password);
- 
   };
 
   return (
@@ -20,8 +19,8 @@ export const Login = () => {
       <div className="login-paper">
         <h2 className="login-title">Login</h2>
         <form className="login-form" onSubmit={handleSubmit}>
-          <label className="login-label">
-            Email address
+          <div className="login-input-group">
+            <label className="login-label">Email address</label>
             <input
               type="email"
               value={email}
@@ -29,9 +28,9 @@ export const Login = () => {
               required
               className="login-input"
             />
-          </label>
-          <label className="login-label">
-            Password
+          </div>
+          <div className="login-input-group">
+            <label className="login-label">Password</label>
             <input
               type="password"
               value={password}
@@ -39,13 +38,13 @@ export const Login = () => {
               required
               className="login-input"
             />
-          </label>
+          </div>
           <button
             type="submit"
             className={`login-button ${isLoading ? "disabled" : ""}`}
             disabled={isLoading}
           >
-            Login
+            {isLoading ? "Logging in..." : "Login"}
           </button>
           {error && <div className="login-error">{error}</div>}
         </form>

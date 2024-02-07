@@ -74,8 +74,7 @@ export default function Blog() {
                                 <Typography variant="h5" component="div">
                                     {blog.title}
                                 </Typography>
-                                <Typography variant="body1" color="text.secondary" style={{ flex: 1, overflow: 'hidden' }}> 
-                                  
+                                <Typography variant="body1" color="text.secondary" style={{ flex: 1, overflow: 'hidden' }}>                                 
                                 <div dangerouslySetInnerHTML={{ __html: marked(truncateContent(blog.content, 60)) }}></div>
                                 </Typography>
                             </CardContent>
