@@ -13,6 +13,8 @@ import Layout from './components/Layout';
 import MDE from './components/MDE';
 import Blog from './components/Blogs/Blog';
 import BlogDetail from './components/Blogs/BlogDetail';
+
+import UserProfile from './components/UserProfile';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -21,7 +23,8 @@ const router = createBrowserRouter([
       { path: '/', element: <Home/> },
       {path:'/blog',element:<Blog/>},
       { path: '/blog/:blogid', element: <BlogDetail/> }, 
-      {path:'/mde',element:<MDE/>}
+      {path:'/mde',element:<MDE/>},
+      {path:'/profile',element:<UserProfile/>}
     ],
   },{
     path: '/login',

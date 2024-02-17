@@ -41,7 +41,7 @@
   justify-content: center;
   border-radius: 4px;
   cursor: pointer;
-  background-color:  skyblue;
+  background-color:  rgb(24, 232, 89);
   color: #fff;
   transition: background-color 0.3s ease;
 }
@@ -59,45 +59,58 @@
 /* navbar */
 
 .navbar {
-  background-color:  skyblue; 
-  padding: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: white;
+  padding: 1rem;
 }
 
 .logo {
   font-size: 1.5rem;
-  font-weight: bold;
 }
 
 .nav-links {
   display: flex;
-  gap: 20px;
+  gap: 1rem;
 }
 
-.nav-links a {
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
+.nav-links > * {
+  white-space: nowrap;
 }
 
-.nav-links a:hover {
-  text-decoration: underline;
+/* Media Query for responsiveness */
+@media screen and (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    margin-top: 1rem;
+  }
+
+  .nav-links > * {
+    margin-right: 0;
+  }
+ 
+
+  .nav-links > *:last-child {
+    margin-bottom: 1rem;
+  }
 }
+
 /* Home.css */
 .home-container {
   display: flex;
 justify-content: flex-start;
 align-items: center;
 height: 100vh;
-margin-top: 10px; /* Adjust as needed based on your navbar height */
+margin-top: 10px; 
 }
 
 .left-aligned-image {
-max-width: 20%; /* Set a maximum width */
-height: auto; /* Maintain the aspect ratio */
-margin-right: 10px; /* Adjust as needed for spacing between image and the left edge */
+max-width: 20%; 
+height: auto; 
+margin-right: 10px; 
 }
 

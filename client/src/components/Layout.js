@@ -1,51 +1,75 @@
-import { Outlet,Link } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 import "../index.css";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useNavigate } from 'react-router-dom';
-import { Button } from "@mui/material";
-
-
-
-export default function Layout(){
-    const {logout} = useLogout()
-  const {user} = useAuthContext()
+import { Avatar, Button,Menu } from "@mui/material";
+import { useState } from "react";
+import SettingsIcon from '@mui/icons-material/Settings';
+import LogoutIcon from '@mui/icons-material/Logout';
+import MenuItem from '@mui/material/MenuItem';
+export default function Layout() {
+  const { logout } = useLogout();
+  const { user } = useAuthContext();
   const navigate = useNavigate();
-  const handleSubmit = () => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleClose = () => {
+  setAnchorEl(null);
+};
+const openMenu = (event) => {
+  setAnchorEl(event.currentTarget);
+}
+  const handleLogout = () => {
     logout();
-   navigate('/')
+    navigate('/');
   };
-    return(
-        <>
-             
-             {user && (
+  const openProfile = () => {
+    navigate('/profile');
+   
+  }
+
+  return (
+    <div>
+      {user && (
         <nav className="navbar">
           <div className="logo">BlogBridges</div>
-          <div className="nav-links">
-            {/* <Link to="/">Home</Link> */}
-            <Button onClick={() => navigate('/')}  variant="contained">Home</Button>
-            <Button onClick={() => navigate('/blog')}  variant="contained">Blogs</Button>
-            {/* <Link to="/blog">Blogs</Link> */}
-            {/* <button onClick={handleSubmit}>Logout</button> */}
-            <Button onClick={handleSubmit} variant="contained" color="primary">Logout</Button>
-          </div>
-        </nav>
-      ) }{!user && (
-        <nav className="navbar">
-          <div className="logo">BlogBridges</div>
-          <div className="nav-links">
-          {/* <Link to="/">Home</Link> */}
-          <Button onClick={() => navigate('/')}  variant="contained">Home</Button>
-          <Button onClick={() => navigate('/login')}  variant="contained">LOGIN</Button>
-          <Button onClick={() => navigate('/signup')}  variant="contained">SIGNUP</Button>
-            {/* <Link to="/login">Login</Link>
-            <Link to="/signup">Signup</Link> */}
-            
+          <div style={{display:'flex',alignItems:'center'}}>
+         
+            <Link to="/"  style={{textDecoration:'none', marginRight: '1em', marginTop: '0.5em' }}>Home</Link>
+            <Link to="/blog"  style={{ textDecoration:'none',marginRight: '1em', marginTop: '0.5em' }}>Blogs</Link>
+            <Avatar alt={user.username} src={user.avatar} style={{ float: 'right', marginRight: '1em', marginTop: '0.5em' }} onClick={openMenu} />
+            <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+            getContentAnchorEl={null}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+          >
+            <MenuItem onClick={openProfile}><SettingsIcon style={{marginInline:'0.2em'}}/>Settings</MenuItem>
+            <MenuItem onClick={handleLogout}><LogoutIcon style={{marginInline:'0.2em'}}/>Logout</MenuItem>
+          </Menu>
           </div>
         </nav>
       )}
-           
-            <Outlet/>
-        </>
-    )
+      {!user && (
+        <nav className="navbar">
+          <div className="logo">BlogBridges</div>
+          <div className="nav-links">
+            <Link to="/" style={{ textDecoration: 'none' }}>Home</Link>
+            <Link to="/login" style={{ textDecoration: 'none' }}>Login</Link>
+            <Link to="/signup" style={{ textDecoration: 'none' }}>Signup</Link>
+
+          </div>
+        </nav>
+      )}
+      <Outlet />
+    </div>
+  );
 }
