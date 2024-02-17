@@ -3,7 +3,7 @@ import "../index.css";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useNavigate } from 'react-router-dom';
-import { Avatar, Button,Menu } from "@mui/material";
+import { Avatar, Button,Menu, Typography } from "@mui/material";
 import { useState } from "react";
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -35,8 +35,10 @@ const openMenu = (event) => {
           <div className="logo">BlogBridges</div>
           <div style={{display:'flex',alignItems:'center'}}>
          
-            <Link to="/"  style={{textDecoration:'none', marginRight: '1em', marginTop: '0.5em' }}>Home</Link>
-            <Link to="/blog"  style={{ textDecoration:'none',marginRight: '1em', marginTop: '0.5em' }}>Blogs</Link>
+            <Link to="/"  style={{textDecoration:'none', marginRight: '1em', marginTop: '0.5em' }}>
+              <Typography>Home</Typography></Link>
+            <Link to="/blog"  style={{ textDecoration:'none',marginRight: '1em', marginTop: '0.5em' }}>
+              <Typography>Blogs</Typography></Link>
             <Avatar alt={user.username} src={user.avatar} style={{ float: 'right', marginRight: '1em', marginTop: '0.5em' }} onClick={openMenu} />
             <Menu
             anchorEl={anchorEl}
@@ -60,7 +62,8 @@ const openMenu = (event) => {
       )}
       {!user && (
         <nav className="navbar">
-          <div className="logo">BlogBridges</div>
+          <div className="logo">
+            <Typography>BlogBridges</Typography></div>
           <div className="nav-links">
             <Link to="/" style={{ textDecoration: 'none' }}>Home</Link>
             <Link to="/login" style={{ textDecoration: 'none' }}>Login</Link>
