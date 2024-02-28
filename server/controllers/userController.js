@@ -54,4 +54,11 @@ const updateUserDetails = async (req, res) => {
             res.status(500).json({ error: error.message });
         }
  }
- module.exports = {getUserDetails,updateUserDetails,deleteUser}
+const getAllUsers = async(req,res)=>{
+    try {
+        const users = await User.find().select({password:0});
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({error : error.message})
+    }}
+ module.exports = {getUserDetails,updateUserDetails,deleteUser,getAllUsers}

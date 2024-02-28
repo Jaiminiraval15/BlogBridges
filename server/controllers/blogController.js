@@ -30,6 +30,18 @@ const getBlogById = async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 };
+const getAllBlogs = async (req, res) => {
+    try {
+        const blogs = await Blog.find().populate("userid", "username");
+        if(!blogs){
+            return res.status(404).json({error : "Blogs not found"});
+        }
+        res.json(blogs);
+    } catch (error) {
+        res.status(400).send('Cannot get blogs!');
+    }
+}
+
 
 
 const addBlog = async(req,res) =>{
@@ -99,4 +111,4 @@ const editBlog = async(req,res) =>{
     
 }
 
-module.exports = {getAll,addBlog,deleteBlog,editBlog,getBlogById}
+module.exports = {getAll,addBlog,deleteBlog,editBlog,getBlogById,getAllBlogs}

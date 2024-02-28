@@ -41,7 +41,7 @@
   justify-content: center;
   border-radius: 4px;
   cursor: pointer;
-  background-color:  rgb(24, 232, 89);
+  background-color:  teal;
   color: #fff;
   transition: background-color 0.3s ease;
 }

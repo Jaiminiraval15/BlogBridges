@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Card, CardContent, CardActions, Grid, Typography, Container } from "@mui/material";
+import { Button, Card, CardContent, CardActions, Grid, Typography, Container,Link } from "@mui/material";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { marked } from 'marked';
 import swal from 'sweetalert';
-
+import CircularProgress from '@mui/material/CircularProgress';
 export default function Blog() {
     const { user } = useAuthContext();
     const navigate = useNavigate();
     const [blogs, setBlogs] = useState([]);
-
+    const [loading, setLoading] = useState(false);
+    const [username, setUsername] = useState("");
     useEffect(() => {
         if (user) {
             fetchData();
+            fetchUserData();
         } else {
             navigate('/login');
         }
@@ -88,44 +90,64 @@ export default function Blog() {
     const handleBlogDetail = (id) => () => {
         navigate(`/blog/${id}`);
     };
+    const fetchUserData = async () => {
+        try {
+            const response = await fetch(`http://localhost:2000/api/user/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
+                }
+            });
+            if (response.ok) {
+                const userData = await response.json();
+
+                setUsername(userData.username);
+            
+            } else {
+                throw new Error('Failed to fetch user data');
+            }
+        } catch (error) {
+            console.log('Error fetching user data:', error);
+        }
+    };
 
     return (
-        <Container maxWidth='lg'>
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={openMDE}
-                        style={{ float: 'right', marginTop: '1em' }}
-                    >
-                        Create Blog
-                    </Button>
-                </Grid>
-                {Array.isArray(blogs) && blogs.length === 0 && <Typography variant="h4">No blogs</Typography>}
-                {blogs.map((blog => (
-                    <Grid item xs={12} sm={6} md={4} lg={3} key={blog._id}>
-                        <Card style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'auto' }}>
-                            <CardContent style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                                <Typography variant="h5" component="div">
-                                    {blog.title}
-                                </Typography>
-                                <Typography variant="body1" color="text.secondary" style={{ flex: 1, overflow: 'hidden' }}>
-                                    <div dangerouslySetInnerHTML={{ __html: marked(truncateContent(blog.content, 60)) }}></div>
-                                </Typography>
-                            </CardContent>
-                            <CardActions>
-                                <Button size="small" color="primary" variant="contained" onClick={handleBlogDetail(blog._id)}>
-                                    Read More
-                                </Button>
-                                <Button size="small" variant="contained" color="error" onClick={() => handleDelete(blog._id)}>
-                                    Delete
-                                </Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                )))}
-            </Grid>
-        </Container>
+        <>
+        <Button
+           
+            variant="outlined"
+            onClick={openMDE}
+            style={{ position: 'absolute', top: '6em', right: '2em' }}
+        >
+            Create Blog
+        </Button>
+        <section className="section">
+            <div className="container">
+                <div className="row">
+                    {loading ? (
+                        <CircularProgress />
+                    ) : (
+                        blogs.map(blog => (
+                            <div className="col-lg-4 mb-4" key={blog._id}>
+                                <div className="post-entry-alt">
+                                    <div className="excerpt">
+                                        <h2><a href={`/blog/${blog._id}`}>{blog.title}</a></h2>
+                                        <div className="post-meta align-items-center text-left clearfix">
+                                            <span className="d-inline-block mt-1">By {username} </span>
+                                            
+                                        </div>
+                                        <p>{truncateContent(blog.content, 60)}</p>
+                                        <p><Button onClick={handleBlogDetail(blog._id)}>Continue Reading</Button></p>
+                                        <Button variant="contained" color="error" onClick={() => handleDelete(blog._id)}>Delete</Button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    )}
+                </div>
+            </div>
+        </section>
+    </>
     );
 }

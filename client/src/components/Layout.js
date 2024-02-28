@@ -33,44 +33,62 @@ export default function Layout() {
 
   return (
     <div>
-      <AppBar position="static" color="transparent" elevation={0}>
-        <Toolbar>
-          <Typography variant="h4" component="div" sx={{ flexGrow: 1 }} style={{color:'darkblue'}}>
-            BlogBridges
-          </Typography>
-          {user && (
-            <>
-              <Button color="inherit" component={Link} style={{color:'darkblue'}} to="/">Home</Button>
-              <Button color="inherit" component={Link} style={{color:'darkblue'}} to="/blog">Blogs</Button>
-              <Avatar alt={user.username} src={user.avatar} sx={{ marginLeft: 2 }} onClick={openMenu} />
-              <Menu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'center',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'center',
-                }}
-              >
-                <MenuItem onClick={openProfile}><SettingsIcon sx={{ marginRight: 1 }} />Settings</MenuItem>
-                <MenuItem onClick={handleLogout}><LogoutIcon sx={{ marginRight: 1 }} />Logout</MenuItem>
-              </Menu>
-            </>
-          )}
-          {!user && (
-            <>
-              <Button color="inherit" component={Link} to="/">Home</Button>
-              <Button color="inherit" component={Link} to="/login">Login</Button>
-              <Button color="inherit" component={Link} to="/signup">Signup</Button>
-            </>
-          )}
-        </Toolbar>
-      </AppBar>
-      <Outlet />
-    </div>
+    <nav className="site-nav">
+      <div className="container">
+        <div className="menu-bg-wrap">
+          <div className="site-navigation">
+            <div className="row g-0 align-items-center">
+              <div className="col-2">
+                <Link to="/" className="logo m-0 float-start">BlogBridges<span className="text-primary">.</span></Link>
+              </div>
+              <div className="col-8 text-center">
+                <ul className="js-clone-nav d-none d-lg-inline-block text-start site-menu mx-auto">
+                  <li className="active"><Link to="/">Home</Link></li>
+                  {user && (
+                    <>
+                      <li><Link to="/blog">My Blogs</Link></li>
+                      <li><Link to="/allblogs">All Blogs</Link></li>
+                    </>
+                  )}
+                </ul>
+              </div>
+              <div className="col-2 text-end">
+                {user && (
+                  <>
+                    <Avatar alt={user.username} src={user.avatar} sx={{ marginRight: 2 }} onClick={openMenu} />
+                    <Menu
+                      anchorEl={anchorEl}
+                      open={Boolean(anchorEl)}
+                      onClose={handleClose}
+                      anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                      }}
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                      }}
+                    >
+                      <MenuItem onClick={openProfile}><SettingsIcon sx={{ marginRight: 1 }} />Settings</MenuItem>
+                      <MenuItem onClick={handleLogout}><LogoutIcon sx={{ marginRight: 1 }} />Logout</MenuItem>
+                    </Menu>
+                  </>
+                )}
+                {!user && (
+                  <>
+                    <Button color="inherit" component={Link} to="/login">Login</Button>
+                    <Button color="inherit" component={Link} to="/signup">Signup</Button>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <Outlet />
+   
+
+  </div>
   );
 }

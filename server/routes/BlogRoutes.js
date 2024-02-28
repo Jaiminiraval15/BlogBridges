@@ -1,6 +1,7 @@
 const blogController = require('../controllers/blogController')
 const {Router} = require('express')
 const router = Router()
+router.get('/allblogs',blogController.getAllBlogs) 
 router.get('/',blogController.getAll)
 router.post("/addblog",blogController.addBlog)
 router.delete("/deleteblog/:blogid",blogController.deleteBlog)

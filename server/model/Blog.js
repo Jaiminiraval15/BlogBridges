@@ -12,8 +12,13 @@ const mongoose = require('mongoose');
   
     userid : {
         type : mongoose.Schema.Types.ObjectId,
-        ref : 'User',
-        required : true
+        ref : 'User'
+        
+    },
+    username : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'User'
+        
     }
 
  })

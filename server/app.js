@@ -18,7 +18,10 @@ app.use(express.json())
 const authRoutes = require('./routes/authRoutes')
 const blogRoutes = require('./routes/BlogRoutes')
 const userRoutes = require('./routes/userRoutes')
-const requireAuth = require('./middleware/authMiddleware')
+
+const requireAuth = require('./middleware/authMiddleware');
+
 app.use('/api/blogs',requireAuth,blogRoutes)
 app.use('/api/user',requireAuth,userRoutes)
+
 app.use('/api/routes',authRoutes)
